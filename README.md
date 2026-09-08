@@ -24,8 +24,8 @@ Upon completion of this project, students will be able to:
     Collaborate using GitHub.
     Develop modular and maintainable code.
 
-Functional Requirements
-Resource Management
+## Functional Requirements
+# Resource Management
 
 The system shall:
 
@@ -67,7 +67,7 @@ Each reservation must contain:
     Resource ID
     Reservation Date
 
-Waiting List Management
+## Waiting List Management
 
 When a resource is unavailable:
 
@@ -75,7 +75,7 @@ When a resource is unavailable:
     Requests must be processed in FIFO order.
     Available resources must automatically be assigned to the next waiting user.
 
-Reservation History
+## Reservation History
 
 The system shall maintain a cancellation history.
 
@@ -85,7 +85,7 @@ When a reservation is cancelled:
     Users may undo the most recent cancellation.
 
 Only the most recently cancelled reservation may be restored.
-Reporting
+## Reporting
 
 The system shall generate reports including:
 
@@ -94,20 +94,20 @@ The system shall generate reports including:
     Number of active reservations
     Waiting list reports
 
-Non-Functional Requirements
-Code Organization
+## Non-Functional Requirements
+## Code Organization
 
     Separate implementation and header files.
     Main function must be in its own source file.
     Use meaningful file and class names.
 
-Documentation
+## Documentation
 
     Source code must contain comments.
     README file required.
     Function-level documentation encouraged.
 
-User Interface
+## User Interface
 
 Menu-driven command-line interface.
 
@@ -127,8 +127,8 @@ Example:
 
 Enter Choice:
 
-Required Data Structures
-Linked List
+## Required Data Structures
+# Linked List
 
 Used For:
 
@@ -139,7 +139,7 @@ Why Appropriate:
     Frequent insertions and deletions
     Dynamic size
 
-Queue
+# Queue
 
 Used For:
 
@@ -149,7 +149,7 @@ Why Appropriate:
 
     First Come, First Served processing
 
-Stack
+# Stack
 
 Used For:
 
@@ -160,7 +160,7 @@ Why Appropriate:
 
     Last In, First Out behavior
 
-Vector
+# Vector
 
 Used For:
 
@@ -170,8 +170,8 @@ Why Appropriate:
 
     Fast traversal and sorting support
 
-Required Algorithms
-Searching
+## Required Algorithms
+# Searching
 
 Students must implement:
 
@@ -184,7 +184,7 @@ Applications:
     Finding a reservation by ID
     Finding reservations associated with a specific student
 
-Sorting
+# Sorting
 
 Students must implement at least one efficient sorting algorithm:
 
@@ -196,7 +196,7 @@ Applications:
     Resource reports
     Reservation reports
 
-Suggested Object-Oriented Design
+## Suggested Object-Oriented Design
 Classes
 Resource
 
@@ -219,7 +219,7 @@ Manages stack operations.
 ReportGenerator
 
 Creates reports and statistics.
-File Organization
+## File Organization
 
 Project1/
 
@@ -260,7 +260,7 @@ Project1/
 └── .gitignore
 
  
-Error Handling
+## Error Handling
 
 The system must:
 
@@ -271,7 +271,7 @@ The system must:
     Handle empty stacks.
     Handle empty waiting queues.
 
-Sample Execution
+## Sample Execution
 Create Reservation
 
 Student ID: 1001
