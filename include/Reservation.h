@@ -35,7 +35,7 @@ class Reservation{
         void setStudentName(string);
 
         int getResourceID();
-        void setResrouceID(int);
+        void setResourceID(int);
 
         string getReservationDate();
         void setReservationDate(string);
