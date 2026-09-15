@@ -23,7 +23,7 @@ class Reservation{
     public:
         //Constructors
         Reservation();
-        Reservation(int, int, string, int, string);
+        Reservation(int reservationID, int studentID, string studentName, int resourceID, string reservationDate);
 
         int getReservationID();
         void setReservationID(int);
