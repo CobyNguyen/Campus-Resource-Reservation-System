@@ -30,6 +30,7 @@
 //Student Name
 //Resource ID
 //Reservation Date
+
 #ifndef RESERVATIONMANAGERH 
 #define RESERVATIONMANAGERH
 
