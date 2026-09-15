@@ -10,7 +10,7 @@
 #define RESERVATION_H
 
 #include <string>
-
+using namespace std;
 
 class Reservation{
     private:
@@ -21,8 +21,9 @@ class Reservation{
         string reservationDate;
 
     public:
-        reservation();
-        reservation(int, int, string, int, string);
+        //Constructors
+        Reservation();
+        Reservation(int, int, string, int, string);
 
         int getReservationID();
         void setReservationID(int);
@@ -38,6 +39,6 @@ class Reservation{
 
         string getReservationDate();
         void setReservationDate(string);
-}
+};
 
 #endif
