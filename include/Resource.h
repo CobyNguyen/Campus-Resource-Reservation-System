@@ -18,13 +18,13 @@
 #include <string>
 
 public class resource {
-	private:
+	private{
 		int resourceID;
 		string resourceName;
-		string resrouceType;
+		string resourceType;
 		bool availability;
-	
-	public:
+	}
+	public{
 		public resource();
 		public resource(int, string, string, bool);
 
@@ -34,11 +34,12 @@ public class resource {
 		string setResourceName();
 		void getResourceName(string);
 
-		string setResrouceType();
-		void getResrouceType(string);
+		string setResourceType();
+		void getResourceType(string);
 
 		bool setAvailability();
 		void getAvailability(bool);
+	}
 }
 
 #endif
