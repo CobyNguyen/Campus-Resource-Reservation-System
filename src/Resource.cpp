@@ -1,5 +1,7 @@
 #include "Resource.h"
 
+using namespace std;
+
 public resource() {
 	resourceID = -1;
 	resourceName = "none";
