@@ -1,23 +1,3 @@
-//Load resource data from input files.
-//Store information about available resources.
-//Display all resources.
-//Search for resources.
-//Sort resources according to user-selected criteria.
-
-//Resources may include:
-//Study Rooms
-//Laptops
-//Calculators
-//Lab Equipment
-//Tutoring appointments
-
-//Each resource must contain:
-//Resource ID
-//Resource Name
-//Resource Type
-//Availability Status
-//Reservation Management
-
 //Users shall be able to:
 //Create a reservation.
 //Cancel a reservation.
@@ -39,10 +19,21 @@
 
 class ReservationManager{
     private:
+        //Constructor
+        ReservationManager();
+        ReservationManager(string studentName, string reservationDate);
+
+        void createReservation(Reservation reservation);
+        void cancelReservation(Reservation reservation);
+        void viewReservations();
+        void searchReservations();
 
     public:
+        string studentName;
+        string reservationDate;
+        //Linked list here? Vector?
 
-}
+};
 
 
 #endif
