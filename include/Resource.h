@@ -15,6 +15,8 @@
 #ifdef RESOURCE_H
 #define RESOURCE_H
 
+using namespace std;
+
 #include <string>
 
 public class resource {
