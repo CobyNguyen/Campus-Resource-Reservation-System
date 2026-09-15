@@ -5,3 +5,34 @@
 //Student Name
 //Resource ID
 //Reservation Date
+
+#ifdef RESERVATION_H
+#define RESERVATION_H
+
+#include <string>
+
+int reservationID;
+int studentID;
+string studentName;
+int resourceID;
+string reservationDate;
+
+public reservation();
+public reservation(int, int, string, int, string);
+
+int getReservationID();
+void setReservationID(int);
+
+int getStudentID();
+void setStudentID(int);
+
+string getStudentName();
+void setStudentName(string);
+
+int getResourceID();
+void setResrouceID(int);
+
+string getReservationDate();
+void setReservationDate(string);
+
+#endif
