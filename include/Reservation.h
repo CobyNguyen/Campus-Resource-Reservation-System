@@ -11,28 +11,33 @@
 
 #include <string>
 
-int reservationID;
-int studentID;
-string studentName;
-int resourceID;
-string reservationDate;
 
-public reservation();
-public reservation(int, int, string, int, string);
+class Reservation{
+    private:
+        int reservationID;
+        int studentID;
+        string studentName;
+        int resourceID;
+        string reservationDate;
 
-int getReservationID();
-void setReservationID(int);
+    public:
+        reservation();
+        reservation(int, int, string, int, string);
 
-int getStudentID();
-void setStudentID(int);
+        int getReservationID();
+        void setReservationID(int);
 
-string getStudentName();
-void setStudentName(string);
+        int getStudentID();
+        void setStudentID(int);
 
-int getResourceID();
-void setResrouceID(int);
+        string getStudentName();
+        void setStudentName(string);
 
-string getReservationDate();
-void setReservationDate(string);
+        int getResourceID();
+        void setResrouceID(int);
+
+        string getReservationDate();
+        void setReservationDate(string);
+}
 
 #endif
