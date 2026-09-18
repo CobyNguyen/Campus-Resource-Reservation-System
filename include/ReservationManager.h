@@ -13,19 +13,19 @@ struct ReservationNode {
 };
 
 class ReservationManager {
-private:
-    ReservationNode* head;
-    ReservationNode* tail;
-    string studentName;
-    string reservationDate;
+    private:
+        ReservationNode* head;
+        ReservationNode* tail;
+        string studentName;
+        string reservationDate;
 
-public:
-    ReservationManager();
-    ReservationManager(string studentName, string reservationDate);
+    public:
+        ReservationManager();
+        ReservationManager(string studentName, string reservationDate);
 
-    void addReservation(Reservation reservation);
-    void removeReservation(int reservationID);
-    void displayReservations();
+        void addReservation(Reservation reservation);
+        void removeReservation(int reservationID);
+        void displayReservations();
 };
 
 #endif
