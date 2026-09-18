@@ -1,7 +1,12 @@
 #include "WaitingList.h"
 
+WaitingList::WaitingList(const std::string& resourceId) : resourceId_(resourceId) {}
+
 bool WaitingList::add(const WaitingStudent& student) {
-    if (student.studentId <= 0 || student.studentName.empty()) {
+    if (student.studentId <= 0 || student.studentName.empty() ||
+        resourceId_.empty() || student.resourceId != resourceId_ ||
+        student.reservationDate.empty() || student.startTime.empty() ||
+        student.endTime.empty()) {
         return false;
     }
 
@@ -28,7 +33,9 @@ void WaitingList::display(std::ostream& out) const {
     std::queue<WaitingStudent> copy = students_;
     while (!copy.empty()) {
         const WaitingStudent& student = copy.front();
-        out << student.studentId << " | " << student.studentName << '\n';
+        out << student.studentId << " | " << student.studentName << " | "
+            << student.resourceId << " | " << student.reservationDate << " | "
+            << student.startTime << " - " << student.endTime << '\n';
         copy.pop();
     }
 }
