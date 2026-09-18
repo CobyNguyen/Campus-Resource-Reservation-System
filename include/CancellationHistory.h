@@ -11,6 +11,8 @@ struct CancelledReservation {
     std::string studentName;
     std::string resourceId;
     std::string reservationDate;
+    std::string startTime;
+    std::string endTime;
 };
 
 class CancellationHistory {
