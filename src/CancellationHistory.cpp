@@ -27,7 +27,8 @@ void CancellationHistory::display(std::ostream& out) const {
             << reservation.studentId << " | "
             << reservation.studentName << " | "
             << reservation.resourceId << " | "
-            << reservation.reservationDate << '\n';
+            << reservation.reservationDate << " | "
+            << reservation.startTime << " - " << reservation.endTime << '\n';
         copy.pop();
     }
 }
