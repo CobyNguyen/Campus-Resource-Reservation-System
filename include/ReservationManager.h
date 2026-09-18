@@ -1,48 +1,31 @@
-//Load resource data from input files.
-//Store information about available resources.
-//Display all resources.
-//Search for resources.
-//Sort resources according to user-selected criteria.
-
-//Resources may include:
-//Study Rooms
-//Laptops
-//Calculators
-//Lab Equipment
-//Tutoring appointments
-
-//Each resource must contain:
-//Resource ID
-//Resource Name
-//Resource Type
-//Availability Status
-//Reservation Management
-
-//Users shall be able to:
-//Create a reservation.
-//Cancel a reservation.
-//View current reservations.
-//Search for reservations.
-
-//Each reservation must contain:
-//Reservation ID
-//Student ID
-//Student Name
-//Resource ID
-//Reservation Date
-
-#ifndef RESERVATIONMANAGERH 
-#define RESERVATIONMANAGERH
+#ifndef RESERVATIONMANAGER_H
+#define RESERVATIONMANAGER_H
 
 #include <string>
+
 #include "Reservation.h"
 
-class ReservationManager{
+using namespace std;
+
+struct ReservationNode {
+    Reservation reservation;
+    ReservationNode* next;
+};
+
+class ReservationManager {
     private:
+        ReservationNode* head;
+        ReservationNode* tail;
+        string studentName;
+        string reservationDate;
 
     public:
+        ReservationManager();
+        ReservationManager(string studentName, string reservationDate);
 
-}
-
+        void addReservation(Reservation reservation);
+        void removeReservation(int reservationID);
+        void displayReservations();
+};
 
 #endif

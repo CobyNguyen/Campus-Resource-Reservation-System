@@ -6,33 +6,39 @@
 //Resource ID
 //Reservation Date
 
-#ifdef RESERVATION_H
+#ifndef RESERVATION_H
 #define RESERVATION_H
 
 #include <string>
+using namespace std;
 
-int reservationID;
-int studentID;
-string studentName;
-int resourceID;
-string reservationDate;
+class Reservation{
+    private:
+        int reservationID;
+        int studentID;
+        string studentName;
+        int resourceID;
+        string reservationDate;
 
-public reservation();
-public reservation(int, int, string, int, string);
+    public:
+        //Constructors
+        Reservation();
+        Reservation(int reservationID, int studentID, string studentName, int resourceID, string reservationDate);
 
-int getReservationID();
-void setReservationID(int);
+        int getReservationID();
+        void setReservationID(int);
 
-int getStudentID();
-void setStudentID(int);
+        int getStudentID();
+        void setStudentID(int);
 
-string getStudentName();
-void setStudentName(string);
+        string getStudentName();
+        void setStudentName(string);
 
-int getResourceID();
-void setResrouceID(int);
+        int getResourceID();
+        void setResourceID(int);
 
-string getReservationDate();
-void setReservationDate(string);
+        string getReservationDate();
+        void setReservationDate(string);
+};
 
 #endif
