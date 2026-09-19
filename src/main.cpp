@@ -4,6 +4,7 @@
 #include <iostream>
 #include "../include/Reservation.h"
 #include "../include/ReservationManager.h"
+#include "../include/Resource.h"
 
 using namespace std;
 

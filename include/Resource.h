@@ -1,34 +1,20 @@
-//Resources may include:
-
-//Study Rooms
-//Laptops
-//Calculators
-//Lab Equipment
-//Tutoring appointments
-//Each resource must contain:
-
-//Resource ID
-//Resource Name
-//Resource Type
-//Availability Status
-
-#ifdef RESOURCE_H
+#ifndef RESOURCE_H
 #define RESOURCE_H
-
-using namespace std;
 
 #include <string>
 
-public class resource {
-	private{
+using namespace std;
+
+class Resource {
+	private:
 		int resourceID;
 		string resourceName;
 		string resourceType;
 		bool availability;
-	}
-	public{
-		public resource();
-		public resource(int, string, string, bool);
+	
+	public:
+		Resource();
+		Resource(int, string, string, bool);
 
 		int setResourceID();
 		void getResourceID(int);
@@ -41,7 +27,6 @@ public class resource {
 
 		bool setAvailability();
 		void getAvailability(bool);
-	}
-}
+};
 
 #endif
