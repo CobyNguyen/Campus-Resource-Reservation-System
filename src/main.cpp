@@ -21,7 +21,7 @@ string stringToLowercase(string str){ //Returns a lowercase version of the input
     return out;
 }
 
-void runCommand(int commandIndex){
+void runCommand(int commandIndex){ //Any new commands and their logic should go here. Complex commands should be given their own method that is then called through this switch case.
     switch (commandIndex){
         case 0: //Exit
             cout << "Exiting...";
