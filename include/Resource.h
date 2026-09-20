@@ -27,6 +27,8 @@ class Resource {
 
 		bool getAvailability();
 		void setAvailability(bool);
+
+		void print();
 };
 
 #endif

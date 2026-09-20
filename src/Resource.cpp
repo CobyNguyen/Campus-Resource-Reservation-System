@@ -1,4 +1,5 @@
 #include <string>
+#include <iostream>
 #include "../include/Resource.h"
 
 using namespace std;
@@ -52,4 +53,15 @@ bool Resource::getAvailability() {
 
 void Resource::setAvailability(bool availability) {
 	this->availability = availability;
+}
+
+void Resource::print(){
+	cout << this->resourceID << "|" << this->resourceName << "|" << this->resourceType;
+	if (this->availability){
+		cout << "|Available";
+	}
+	else{
+		cout << "|Unavailable";
+	}
+	cout << endl;
 }

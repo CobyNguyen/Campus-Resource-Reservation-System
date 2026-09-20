@@ -8,13 +8,14 @@
 
 using namespace std;
 
+const int COMMAND_LENGTH = 7;
+string VALID_COMMANDS[COMMAND_LENGTH] = { "exit", "create reservation", "cancel reservation", "undo cancellation", "show available", "show all", "help"};
 
-string VALID_COMMANDS[4] = { "exit", "create reservation", "cancel reservation", "undo cancellation"};
 string userInput = "";
 int userCommand = -1;
 
 
-vector<Resource> availableResources; //Will contain info from data/resources.txt
+vector<Resource> currentResources; //Will contain info from data/resources.txt
 
 
 void readResourcesFile(string inputFile){ //reads from the supplied file and populates availableResources with new resource objects
@@ -44,11 +45,9 @@ void readResourcesFile(string inputFile){ //reads from the supplied file and pop
 
             availability = (line == "Available");
 
-            cout << resourceID << " " << resourceName << " " << resourceType << " " << availability << endl;
 
-
-            Resource newResource = Resource();
-            availableResources.push_back(newResource);
+            Resource newResource = Resource(resourceID, resourceName, resourceType, availability);
+            currentResources.push_back(newResource);
         }
     }
     else{
@@ -58,7 +57,28 @@ void readResourcesFile(string inputFile){ //reads from the supplied file and pop
     file.close();
 }
 
+void displayAvailableResources(){
+    for (int i = 0; i < currentResources.size(); i++){
+        Resource newRs = currentResources.at(i);
+        if (newRs.getAvailability()){
+            newRs.print();
+        }
+    }
+}
 
+void displayAllResources(){
+    for (int i = 0; i < currentResources.size(); i++){
+        Resource newRs = currentResources.at(i);
+        newRs.print();
+    }
+}
+
+void showAllCommands(){
+    cout << "Valid commands:" << endl;
+    for (int i = 0; i < COMMAND_LENGTH; i++){
+        cout << " - " << VALID_COMMANDS[i] << endl;
+    }
+}
 
 //Since we are dealing with C++ Strings, we need our own toLower method
 string stringToLowercase(string str){ //Returns a lowercase version of the input string
@@ -76,29 +96,38 @@ void runCommand(int commandIndex){ //Any new commands and their logic should go 
             break;
 
         case 1: //Create Reservation
-            cout << "Create Reservation N/A" << endl;
+            cout << "Create Reservation NOT IMPLEMENTED" << endl;
             break;
 
         case 2: //Cancel Reservation
-            cout << "Cancel Reservation N/A" << endl;
+            cout << "Cancel Reservation NOT IMPLEMENTED" << endl;
             break;
 
         case 3: //Undo Cancellation
-            cout << "Undo Cancellation N/A" << endl;
+            cout << "Undo Cancellation NOT IMPLEMENTED" << endl;
+            break;
+
+        case 4: //Show available
+            displayAvailableResources();
+            break;
+
+        case 5: //Show all
+            displayAllResources();
+            break;
+        
+        case 6:
+            showAllCommands();
             break;
 
         default:
             cout << "Command '" << userInput << "' not found..." << endl;
-            cout << "Valid commands:" << endl;
-            for (int i = 0; i < VALID_COMMANDS->size(); i++){
-                cout << " - " << VALID_COMMANDS[i] << endl;
-            }
+            showAllCommands();
     };
 }
 
 int validateCommand(string commandEntered){ //Returns the index of the input command if the command is contained in VALID_COMMANDS. Otherwise outputs -1
     int valid = -1;
-    for (int i = 0; i < 4; i++){
+    for (int i = 0; i < COMMAND_LENGTH; i++){
         if (stringToLowercase(commandEntered) == VALID_COMMANDS[i]){
             valid = i;
             break;
