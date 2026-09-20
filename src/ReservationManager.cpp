@@ -93,7 +93,6 @@ void ReservationManager::createReservation() {
 
     cout << "Resource ID: ";
     getline(cin, input);
-    resourceID = stoi(input);
 
     cout << "Reservation Date: ";
     getline(cin, reservationDate);
