@@ -144,6 +144,7 @@ int main(){
     readResourcesFile("../data/resources.txt");
 
     while (userCommand != 0){ //Main user input loop
+        cout << endl;
         cout << "Please enter a command: ";
         cin.clear();
         getline(cin, userInput);
