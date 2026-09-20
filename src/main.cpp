@@ -8,8 +8,8 @@
 
 using namespace std;
 
-const int COMMAND_LENGTH = 7;
-string VALID_COMMANDS[COMMAND_LENGTH] = { "exit", "create reservation", "cancel reservation", "undo cancellation", "show available resources", "show all resources", "help"};
+const int COMMAND_LENGTH = 8;
+string VALID_COMMANDS[COMMAND_LENGTH] = { "exit", "create reservation", "cancel reservation", "undo cancellation", "show available resources", "show all resources", "show reservations", "help"};
 
 string userInput = "";
 int userCommand = -1;
@@ -90,18 +90,18 @@ string stringToLowercase(string str){ //Returns a lowercase version of the input
     return out;
 }
 
-void runCommand(int commandIndex){ //Any new commands and their logic should go here. Complex commands should be given their own method that is then called through this switch case.
+void runCommand(int commandIndex, ReservationManager& reservationManager){ //Any new commands and their logic should go here. Complex commands should be given their own method that is then called through this switch case.
     switch (commandIndex){
         case 0: //Exit
             cout << "Exiting...";
             break;
 
         case 1: //Create Reservation
-            cout << "Create Reservation NOT IMPLEMENTED" << endl;
+            reservationManager.createReservation();
             break;
 
         case 2: //Cancel Reservation
-            cout << "Cancel Reservation NOT IMPLEMENTED" << endl;
+            reservationManager.cancelReservation();
             break;
 
         case 3: //Undo Cancellation
@@ -115,8 +115,12 @@ void runCommand(int commandIndex){ //Any new commands and their logic should go 
         case 5: //Show all resources
             displayAllResources();
             break;
+
+        case 6: //Show reservations
+            reservationManager.displayReservations();
+            break;
         
-        case 6:
+        case 7:
             showAllCommands();
             break;
 
@@ -140,17 +144,19 @@ int validateCommand(string commandEntered){ //Returns the index of the input com
 
 
 int main(){
+    ReservationManager reservationManager;
 
     readResourcesFile("../data/resources.txt");
 
     while (userCommand != 0){ //Main user input loop
+        cout << endl;
         cout << "Please enter a command: ";
         cin.clear();
         getline(cin, userInput);
         cout << endl;
 
         userCommand = validateCommand(userInput);
-        runCommand(userCommand);
+        runCommand(userCommand, reservationManager);
         //Validates then runs the command the user input
     }
 

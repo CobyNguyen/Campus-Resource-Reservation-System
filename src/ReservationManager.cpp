@@ -6,11 +6,15 @@ using namespace std;
 
 //Constructors
 ReservationManager::ReservationManager() {
+    head = nullptr;
+    tail = nullptr;
     studentName = "";
     reservationDate = "";
 }
 
 ReservationManager::ReservationManager(string studentName, string reservationDate) {
+    head = nullptr;
+    tail = nullptr;
     this->studentName = studentName;
     this->reservationDate = reservationDate;
 }
@@ -66,4 +70,42 @@ void ReservationManager::displayReservations() {
         cout << "------------------------" << endl;
         current = current->next;
     }
+}
+
+void ReservationManager::createReservation() {
+    string input;
+    int reservationID;
+    int studentID;
+    string studentName;
+    int resourceID;
+    string reservationDate;
+
+    cout << "Reservation ID: ";
+    getline(cin, input);
+    reservationID = stoi(input);
+
+    cout << "Student ID: ";
+    getline(cin, input);
+    studentID = stoi(input);
+
+    cout << "Student Name: ";
+    getline(cin, studentName);
+
+    cout << "Resource ID: ";
+    getline(cin, input);
+    resourceID = stoi(input);
+
+    cout << "Reservation Date: ";
+    getline(cin, reservationDate);
+
+    addReservation(Reservation(reservationID, studentID, studentName, resourceID, reservationDate));
+    cout << "Reservation created." << endl;
+}
+
+void ReservationManager::cancelReservation() {
+    string input;
+    cout << "Reservation ID: ";
+    getline(cin, input);
+    removeReservation(stoi(input));
+    cout << "Reservation cancelled." << endl;
 }

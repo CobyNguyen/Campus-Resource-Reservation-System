@@ -19,12 +19,15 @@ class ReservationManager {
         string studentName;
         string reservationDate;
 
+        void addReservation(Reservation reservation);
+        void removeReservation(int reservationID);
+
     public:
         ReservationManager();
         ReservationManager(string studentName, string reservationDate);
 
-        void addReservation(Reservation reservation);
-        void removeReservation(int reservationID);
+        void cancelReservation();
+        void createReservation();
         void displayReservations();
 };
 
