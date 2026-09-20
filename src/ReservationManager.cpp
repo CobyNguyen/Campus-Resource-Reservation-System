@@ -83,6 +83,12 @@ void ReservationManager::createReservation(vector<Resource>& resources) {
     cout << "Reservation ID: ";
     cin >> reservationID;
 
+    if (searchForReservation(reservationID)){
+        cout << "Reservation already exists. Reservation was not created.";
+        cin.clear();
+        return;
+    }
+
     cout << "Student ID: ";
     cin >> studentID;
 
@@ -121,4 +127,15 @@ void ReservationManager::cancelReservation() {
     getline(cin, input);
     removeReservation(stoi(input));
     cout << "Reservation cancelled." << endl;
+}
+
+bool ReservationManager::searchForReservation(int reservationID){
+    ReservationNode* current = head;
+    while (current != nullptr) {
+        if(current->reservation.getReservationID() == reservationID){
+            return true;
+        }
+        current = current->next;
+    }
+    return false;
 }

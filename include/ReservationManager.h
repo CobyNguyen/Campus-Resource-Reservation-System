@@ -31,6 +31,7 @@ class ReservationManager {
         void cancelReservation();
         void createReservation(vector<Resource>& resources);
         void displayReservations();
+        bool searchForReservation(int);
 };
 
 #endif
