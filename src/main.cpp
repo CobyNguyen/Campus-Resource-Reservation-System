@@ -1,7 +1,7 @@
-#include <cctype>
-#include <cstdlib>
 #include <string>
+#include <fstream>
 #include <iostream>
+#include <vector>
 #include "../include/Reservation.h"
 #include "../include/ReservationManager.h"
 #include "../include/Resource.h"
@@ -12,6 +12,53 @@ using namespace std;
 string VALID_COMMANDS[4] = { "exit", "create reservation", "cancel reservation", "undo cancellation"};
 string userInput = "";
 int userCommand = -1;
+
+
+vector<Resource> availableResources; //Will contain info from data/resources.txt
+
+
+void readResourcesFile(string inputFile){ //reads from the supplied file and populates availableResources with new resource objects
+    ifstream file = ifstream();
+    file.open(inputFile);
+
+    string line;
+
+    if (file.is_open()){
+        while (getline(file, line)){
+            string resourceID;
+            string resourceName;
+            string resourceType;
+            bool availability;
+            
+            int next = line.find('|');
+            resourceID = line.substr(0, next);
+            line = line.substr(next + 1);
+
+            next = line.find('|');
+            resourceName = line.substr(0, next);
+            line = line.substr(next + 1);
+
+            next = line.find('|');
+            resourceType = line.substr(0, next);
+            line = line.substr(next + 1);
+
+            availability = (line == "Available");
+
+            cout << resourceID << " " << resourceName << " " << resourceType << " " << availability << endl;
+
+
+            Resource newResource = Resource();
+            availableResources.push_back(newResource);
+        }
+    }
+    else{
+        cout << "Failed to read data from: " << inputFile << endl;
+    }
+
+    file.close();
+}
+
+
 
 //Since we are dealing with C++ Strings, we need our own toLower method
 string stringToLowercase(string str){ //Returns a lowercase version of the input string
@@ -51,7 +98,7 @@ void runCommand(int commandIndex){ //Any new commands and their logic should go 
 
 int validateCommand(string commandEntered){ //Returns the index of the input command if the command is contained in VALID_COMMANDS. Otherwise outputs -1
     int valid = -1;
-    for (int i = 0; i < VALID_COMMANDS->size(); i++){
+    for (int i = 0; i < 4; i++){
         if (stringToLowercase(commandEntered) == VALID_COMMANDS[i]){
             valid = i;
             break;
@@ -60,7 +107,11 @@ int validateCommand(string commandEntered){ //Returns the index of the input com
     return valid;
 }
 
+
+
 int main(){
+
+    readResourcesFile("../data/resources.txt");
 
     while (userCommand != 0){ //Main user input loop
         cout << "Please enter a command: ";

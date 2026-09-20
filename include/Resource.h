@@ -7,26 +7,26 @@ using namespace std;
 
 class Resource {
 	private:
-		int resourceID;
+		string resourceID;
 		string resourceName;
 		string resourceType;
 		bool availability;
 	
 	public:
 		Resource();
-		Resource(int, string, string, bool);
+		Resource(string, string, string, bool);
+		
+		string getResourceID();
+		void setResourceID(string);
 
-		int setResourceID();
-		void getResourceID(int);
+		string getResourceName();
+		void setResourceName(string);
 
-		string setResourceName();
-		void getResourceName(string);
+		string getResourceType();
+		void setResourceType(string);
 
-		string setResourceType();
-		void getResourceType(string);
-
-		bool setAvailability();
-		void getAvailability(bool);
+		bool getAvailability();
+		void setAvailability(bool);
 };
 
 #endif
