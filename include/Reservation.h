@@ -1,15 +1,8 @@
-//Each reservation must contain:
-
-//Reservation ID
-//Student ID
-//Student Name
-//Resource ID
-//Reservation Date
-
 #ifndef RESERVATION_H
 #define RESERVATION_H
 
 #include <string>
+
 using namespace std;
 
 class Reservation{

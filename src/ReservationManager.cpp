@@ -1,8 +1,8 @@
-using namespace std;
-
-#include "ReservationManager.h"
-#include "Reservation.h"
+#include "../include/ReservationManager.h"
+#include "../include/Reservation.h"
 #include <iostream>
+
+using namespace std;
 
 //Constructors
 ReservationManager::ReservationManager() {

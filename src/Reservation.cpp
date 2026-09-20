@@ -1,6 +1,6 @@
-using namespace std;
+#include "../include/Reservation.h"
 
-#include "Reservation.h"
+using namespace std;
 
 //Constructors
 Reservation::Reservation() {
