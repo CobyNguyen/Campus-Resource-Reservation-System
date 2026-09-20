@@ -7,11 +7,11 @@ Reservation::Reservation() {
     reservationID = 0;
     studentID = 0;
     studentName = "";
-    resourceID = 0;
+    resourceID = "";
     reservationDate = "";
 }
 
-Reservation::Reservation(int reservationID, int studentID, string studentName, int resourceID, string reservationDate) {
+Reservation::Reservation(int reservationID, int studentID, string studentName, string resourceID, string reservationDate) {
     this->reservationID = reservationID;
     this->studentID = studentID;
     this->studentName = studentName;
@@ -44,11 +44,11 @@ void Reservation::setStudentName(string studentName) {
     this->studentName = studentName;
 }
 
-int Reservation::getResourceID() {
+string Reservation::getResourceID() {
     return resourceID;
 }
 
-void Reservation::setResourceID(int resourceID) {
+void Reservation::setResourceID(string resourceID) {
     this->resourceID = resourceID;
 }
 

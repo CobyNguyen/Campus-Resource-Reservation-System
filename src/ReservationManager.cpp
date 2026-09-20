@@ -77,20 +77,22 @@ void ReservationManager::createReservation() {
     int reservationID;
     int studentID;
     string studentName;
-    int resourceID;
+    string resourceID;
     string reservationDate;
 
     cout << "Reservation ID: ";
-    getline(cin, input);
+    cin >> reservationID;
 
     cout << "Student ID: ";
-    getline(cin, input);
+    cin >> studentID;
 
     cout << "Student Name: ";
+    cin.ignore();
     getline(cin, studentName);
+    cin.clear();
 
     cout << "Resource ID: ";
-    getline(cin, input);
+    getline(cin, resourceID);
 
     cout << "Reservation Date: ";
     getline(cin, reservationDate);

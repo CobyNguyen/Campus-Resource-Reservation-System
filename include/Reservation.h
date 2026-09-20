@@ -10,13 +10,13 @@ class Reservation{
         int reservationID;
         int studentID;
         string studentName;
-        int resourceID;
+        string resourceID;
         string reservationDate;
 
     public:
         //Constructors
         Reservation();
-        Reservation(int reservationID, int studentID, string studentName, int resourceID, string reservationDate);
+        Reservation(int reservationID, int studentID, string studentName, string resourceID, string reservationDate);
 
         int getReservationID();
         void setReservationID(int);
@@ -27,8 +27,8 @@ class Reservation{
         string getStudentName();
         void setStudentName(string);
 
-        int getResourceID();
-        void setResourceID(int);
+        string getResourceID();
+        void setResourceID(string);
 
         string getReservationDate();
         void setReservationDate(string);
