@@ -9,7 +9,7 @@
 using namespace std;
 
 const int COMMAND_LENGTH = 7;
-string VALID_COMMANDS[COMMAND_LENGTH] = { "exit", "create reservation", "cancel reservation", "undo cancellation", "show available", "show all", "help"};
+string VALID_COMMANDS[COMMAND_LENGTH] = { "exit", "create reservation", "cancel reservation", "undo cancellation", "show available resources", "show all resources", "help"};
 
 string userInput = "";
 int userCommand = -1;
@@ -78,6 +78,7 @@ void showAllCommands(){
     for (int i = 0; i < COMMAND_LENGTH; i++){
         cout << " - " << VALID_COMMANDS[i] << endl;
     }
+    cout << endl;
 }
 
 //Since we are dealing with C++ Strings, we need our own toLower method
@@ -107,11 +108,11 @@ void runCommand(int commandIndex){ //Any new commands and their logic should go 
             cout << "Undo Cancellation NOT IMPLEMENTED" << endl;
             break;
 
-        case 4: //Show available
+        case 4: //Show available resources
             displayAvailableResources();
             break;
 
-        case 5: //Show all
+        case 5: //Show all resources
             displayAllResources();
             break;
         
