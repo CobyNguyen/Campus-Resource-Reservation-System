@@ -82,11 +82,9 @@ void ReservationManager::createReservation() {
 
     cout << "Reservation ID: ";
     getline(cin, input);
-    reservationID = stoi(input);
 
     cout << "Student ID: ";
     getline(cin, input);
-    studentID = stoi(input);
 
     cout << "Student Name: ";
     getline(cin, studentName);
