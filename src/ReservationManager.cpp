@@ -98,7 +98,8 @@ void ReservationManager::createReservation(vector<Resource>& resources) {
     for (Resource& resource : resources) {
         if (resource.getResourceID() == resourceID) {
             cout << "Resource ID exists." << endl;
-            return;
+            resourceExists = true;
+            break;
         }
     }
 
