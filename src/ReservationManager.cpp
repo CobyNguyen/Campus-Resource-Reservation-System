@@ -1,6 +1,7 @@
 #include "../include/ReservationManager.h"
 #include "../include/Reservation.h"
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -72,8 +73,7 @@ void ReservationManager::displayReservations() {
     }
 }
 
-void ReservationManager::createReservation() {
-    string input;
+void ReservationManager::createReservation(vector<Resource>& resources) {
     int reservationID;
     int studentID;
     string studentName;
@@ -93,6 +93,19 @@ void ReservationManager::createReservation() {
 
     cout << "Resource ID: ";
     getline(cin, resourceID);
+
+    bool resourceExists = false;
+    for (Resource& resource : resources) {
+        if (resource.getResourceID() == resourceID) {
+            cout << "Resource ID exists." << endl;
+            return;
+        }
+    }
+
+    if (!resourceExists) {
+        cout << "Invalid resource ID. Reservation was not created." << endl;
+        return;
+    }
 
     cout << "Reservation Date: ";
     getline(cin, reservationDate);

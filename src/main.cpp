@@ -97,7 +97,7 @@ void runCommand(int commandIndex, ReservationManager& reservationManager){ //Any
             break;
 
         case 1: //Create Reservation
-            reservationManager.createReservation();
+            reservationManager.createReservation(currentResources);
             break;
 
         case 2: //Cancel Reservation

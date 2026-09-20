@@ -2,8 +2,10 @@
 #define RESERVATIONMANAGER_H
 
 #include <string>
+#include <vector>
 
 #include "Reservation.h"
+#include "Resource.h"
 
 using namespace std;
 
@@ -27,7 +29,7 @@ class ReservationManager {
         ReservationManager(string studentName, string reservationDate);
 
         void cancelReservation();
-        void createReservation();
+        void createReservation(vector<Resource>& resources);
         void displayReservations();
 };
 
