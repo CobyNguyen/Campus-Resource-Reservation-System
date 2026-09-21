@@ -7,11 +7,11 @@ Reservation::Reservation() {
     reservationID = 0;
     studentID = 0;
     studentName = "";
-    resourceID = 0;
+    resourceID = "";
     reservationDate = "";
 }
 
-Reservation::Reservation(int reservationID, int studentID, string studentName, int resourceID, string reservationDate) {
+Reservation::Reservation(int reservationID, int studentID, string studentName, string resourceID, string reservationDate) {
     this->reservationID = reservationID;
     this->studentID = studentID;
     this->studentName = studentName;
@@ -20,7 +20,7 @@ Reservation::Reservation(int reservationID, int studentID, string studentName, i
 }
 
 //Getters and Setters
-  int Reservation::getReservationID() {
+int Reservation::getReservationID() const {
     return reservationID;
   }
 
@@ -28,7 +28,7 @@ void Reservation::setReservationID(int reservationID) {
     this->reservationID = reservationID;
 }
 
-int Reservation::getStudentID() {
+int Reservation::getStudentID() const {
     return studentID;
 }
 
@@ -36,7 +36,7 @@ void Reservation::setStudentID(int studentID) {
     this->studentID = studentID;
 }
 
-string Reservation::getStudentName() {
+string Reservation::getStudentName() const {
     return studentName;
 }
 
@@ -44,15 +44,15 @@ void Reservation::setStudentName(string studentName) {
     this->studentName = studentName;
 }
 
-int Reservation::getResourceID() {
+string Reservation::getResourceID() const {
     return resourceID;
 }
 
-void Reservation::setResourceID(int resourceID) {
+void Reservation::setResourceID(string resourceID) {
     this->resourceID = resourceID;
 }
 
-string Reservation::getReservationDate() {
+string Reservation::getReservationDate() const {
     return reservationDate;
 }
 
