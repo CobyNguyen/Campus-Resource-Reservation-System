@@ -9,7 +9,7 @@
 using namespace std;
 
 const int COMMAND_LENGTH = 8;
-string VALID_COMMANDS[COMMAND_LENGTH] = { "exit", "create reservation", "cancel reservation", "undo cancellation", "show available resources", "show all resources", "show reservations", "help"};
+string VALID_COMMANDS[COMMAND_LENGTH] = { "create reservation", "cancel reservation", "undo cancellation", "show available resources", "show all resources", "show reservations", "show waiting lists", "exit"};
 
 string userInput = "";
 int userCommand = -1;
@@ -58,7 +58,7 @@ void readResourcesFile(string inputFile){ //reads from the supplied file and pop
 }
 
 void displayAvailableResources(){
-    for (int i = 0; i < currentResources.size(); i++){
+    for (size_t i = 0; i < currentResources.size(); i++){
         Resource newRs = currentResources.at(i);
         if (newRs.getAvailability()){
             newRs.print();
@@ -67,7 +67,7 @@ void displayAvailableResources(){
 }
 
 void displayAllResources(){
-    for (int i = 0; i < currentResources.size(); i++){
+    for (size_t i = 0; i < currentResources.size(); i++){
         Resource newRs = currentResources.at(i);
         newRs.print();
     }
@@ -84,44 +84,44 @@ void showAllCommands(){
 //Since we are dealing with C++ Strings, we need our own toLower method
 string stringToLowercase(string str){ //Returns a lowercase version of the input string
     string out = str;
-    for (int i = 0; i < out.length(); i++){ //Replaces each character in the string with its lowecase counterpart
+    for (size_t i = 0; i < out.length(); i++){ //Replaces each character in the string with its lowecase counterpart
         out.at(i) = tolower(out.at(i));
     }
     return out;
 }
 
 void runCommand(int commandIndex, ReservationManager& reservationManager){ //Any new commands and their logic should go here. Complex commands should be given their own method that is then called through this switch case.
-    switch (commandIndex){
-        case 0: //Exit
-            cout << "Exiting...";
-            break;
-
-        case 1: //Create Reservation
+    switch (commandIndex) {
+        case 0: //Create Reservation
             reservationManager.createReservation(currentResources);
             break;
 
-        case 2: //Cancel Reservation
-            reservationManager.cancelReservation();
+        case 1: //Cancel Reservation
+            reservationManager.cancelReservation(currentResources);
             break;
 
-        case 3: //Undo Cancellation
-            cout << "Undo Cancellation NOT IMPLEMENTED" << endl;
+        case 2: //Undo Cancellation
+            reservationManager.undoCancellation(currentResources);
             break;
 
-        case 4: //Show available resources
+        case 3: //Show available resources
             displayAvailableResources();
             break;
 
-        case 5: //Show all resources
+        case 4: //Show all resources
             displayAllResources();
             break;
 
-        case 6: //Show reservations
+        case 5: //Show reservations
             reservationManager.displayReservations();
             break;
         
-        case 7:
-            showAllCommands();
+        case 6: //Show waiting lists
+            reservationManager.displayWaitingLists();
+            break;
+
+        case 7: //Exit
+            cout << "Exiting...";
             break;
 
         default:
@@ -148,11 +148,14 @@ int main(){
 
     readResourcesFile("../data/resources.txt");
 
-    while (userCommand != 0){ //Main user input loop
+    while (userCommand != 7){ //Main user input loop;
         cout << endl;
+        showAllCommands();
         cout << "Please enter a command: ";
-        getline(cin, userInput);
-        cin.clear();
+        if (!getline(cin, userInput)) {
+            cout << endl << "Input closed. Exiting..." << endl;
+            break;
+        }
         cout << endl;
 
         userCommand = validateCommand(userInput);

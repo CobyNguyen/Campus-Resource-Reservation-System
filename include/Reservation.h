@@ -18,19 +18,19 @@ class Reservation{
         Reservation();
         Reservation(int reservationID, int studentID, string studentName, string resourceID, string reservationDate);
 
-        int getReservationID();
+        int getReservationID() const;
         void setReservationID(int);
 
-        int getStudentID();
+        int getStudentID() const;
         void setStudentID(int);
 
-        string getStudentName();
+        string getStudentName() const;
         void setStudentName(string);
 
-        string getResourceID();
+        string getResourceID() const;
         void setResourceID(string);
 
-        string getReservationDate();
+        string getReservationDate() const;
         void setReservationDate(string);
 };
 

@@ -43,3 +43,7 @@ void WaitingList::display(std::ostream& out) const {
 bool WaitingList::empty() const {
     return students_.empty();
 }
+
+const std::string& WaitingList::resourceId() const {
+    return resourceId_;
+}

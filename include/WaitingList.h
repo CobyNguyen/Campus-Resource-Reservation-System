@@ -21,6 +21,7 @@ public:
     bool removeNext(WaitingStudent& student);
     void display(std::ostream& out) const;
     bool empty() const;
+    const std::string& resourceId() const;
 
 private:
     std::string resourceId_;

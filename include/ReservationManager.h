@@ -4,8 +4,10 @@
 #include <string>
 #include <vector>
 
+#include "CancellationHistory.h"
 #include "Reservation.h"
 #include "Resource.h"
+#include "WaitingList.h"
 
 using namespace std;
 
@@ -18,19 +20,24 @@ class ReservationManager {
     private:
         ReservationNode* head;
         ReservationNode* tail;
-        string studentName;
-        string reservationDate;
+        CancellationHistory cancellationHistory;
+        vector<WaitingList> waitingLists;
 
         void addReservation(Reservation reservation);
         void removeReservation(int reservationID);
+        WaitingList* findWaitingList(const string& resourceID);
+        int nextReservationID() const;
 
     public:
         ReservationManager();
         ReservationManager(string studentName, string reservationDate);
+        ~ReservationManager();
 
-        void cancelReservation();
+        void cancelReservation(vector<Resource>& resources);
         void createReservation(vector<Resource>& resources);
         void displayReservations();
+        void displayWaitingLists() const;
+        void undoCancellation(vector<Resource>& resources);
         bool searchForReservation(int);
 };
 
