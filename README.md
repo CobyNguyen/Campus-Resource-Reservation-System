@@ -172,17 +172,18 @@ Why Appropriate:
 
 ## Required Algorithms
 # Searching
-
-Students must implement:
-
-    Linear Search OR
-    Binary Search
-
-Applications:
+# Linear Search
+Used For:
 
     Finding a resource by ID
     Finding a reservation by ID
     Finding reservations associated with a specific student
+
+Why Appropriate
+
+    Reservations are stored in a linked list, so binary search cannot jump to the middle
+    Resources do not need to be sorted first
+    Time complexity: O(n)
 
 # Sorting
 
