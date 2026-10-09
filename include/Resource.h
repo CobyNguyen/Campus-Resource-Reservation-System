@@ -2,6 +2,7 @@
 #define RESOURCE_H
 
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -30,5 +31,8 @@ class Resource {
 
 		void print();
 };
+
+// Returns the index of the resource, or -1 if not found
+int findResourceIndex(vector<Resource>& resources, const string& resourceID);
 
 #endif
