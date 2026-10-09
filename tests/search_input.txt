@@ -1,0 +1,29 @@
+search resource
+R105
+search resource
+R999
+create reservation
+1001
+Alice Smith
+R101
+09/15/2026
+create reservation
+1001
+Alice Smith
+R102
+09/16/2026
+search reservation
+2
+search reservation
+50
+search reservation
+abc
+search student reservations
+1001
+search student reservations
+7777
+cancel reservation
+1
+search reservation
+1
+exit

@@ -65,3 +65,13 @@ void Resource::print(){
 	}
 	cout << endl;
 }
+
+// Linear search for a resource by ID
+int findResourceIndex(vector<Resource>& resources, const string& resourceID) {
+	for (size_t i = 0; i < resources.size(); i++) {
+		if (resources[i].getResourceID() == resourceID) {
+			return i;
+		}
+	}
+	return -1;
+}

@@ -38,7 +38,9 @@ class ReservationManager {
         void displayReservations();
         void displayWaitingLists() const;
         void undoCancellation(vector<Resource>& resources);
-        bool searchForReservation(int);
+        const Reservation* findReservation(int reservationID) const;
+        void searchReservation() const;
+        void searchStudentReservations() const;
 };
 
 #endif
