@@ -15,6 +15,7 @@ APP_SOURCES := src/main.cpp src/CancellationHistory.cpp src/Reservation.cpp src/
 
 CANCELLATION_TEST := cancellation_history_test$(EXEEXT)
 WAITING_LIST_TEST := waiting_list_test$(EXEEXT)
+SEARCH_TEST := search_test$(EXEEXT)
 
 ifeq ($(OS),Windows_NT)
 RUN_COMMAND := ..\$(APP)
@@ -35,12 +36,16 @@ $(CANCELLATION_TEST): tests/CancellationHistoryTest.cpp src/CancellationHistory.
 $(WAITING_LIST_TEST): tests/WaitingListTest.cpp src/WaitingList.cpp
 	$(CXX) $(CXXFLAGS) $(INCLUDES) $^ -o $@
 
-test: $(CANCELLATION_TEST) $(WAITING_LIST_TEST)
+$(SEARCH_TEST): tests/SearchTest.cpp src/Resource.cpp
+	$(CXX) $(CXXFLAGS) $(INCLUDES) $^ -o $@
+
+test: $(CANCELLATION_TEST) $(WAITING_LIST_TEST) $(SEARCH_TEST)
 	./$(CANCELLATION_TEST)
 	./$(WAITING_LIST_TEST)
+	./$(SEARCH_TEST)
 
 run: $(APP)
 	cd src && $(RUN_COMMAND)
 
 clean:
-	-$(RM) $(APP) $(CANCELLATION_TEST) $(WAITING_LIST_TEST)
+	-$(RM) $(APP) $(CANCELLATION_TEST) $(WAITING_LIST_TEST) $(SEARCH_TEST)

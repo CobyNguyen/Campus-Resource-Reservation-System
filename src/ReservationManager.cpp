@@ -6,6 +6,16 @@
 
 using namespace std;
 
+// Prints one reservation in the same block format used by "show reservations".
+void printReservation(const Reservation& r) {
+    cout << "Reservation ID: " << r.getReservationID() << endl;
+    cout << "Student ID: " << r.getStudentID() << endl;
+    cout << "Student Name: " << r.getStudentName() << endl;
+    cout << "Resource ID: " << r.getResourceID() << endl;
+    cout << "Reservation Date: " << r.getReservationDate() << endl;
+    cout << "------------------------" << endl;
+}
+
 //Constructors
 ReservationManager::ReservationManager() {
     head = nullptr;
@@ -251,13 +261,67 @@ void ReservationManager::undoCancellation(vector<Resource>& resources) { // Undo
     cout << "Cancellation undone." << endl;
 }
 
-bool ReservationManager::searchForReservation(int reservationID){
+// ---------- Searching ----------
+// Reservations are stored in a linked list, so we can't jump to the middle.
+// Binary search needs that, so we use linear search: check each node in order.
+
+// Linear search by reservation ID. Returns the reservation, or nullptr if not found. O(n)
+const Reservation* ReservationManager::findReservation(int reservationID) const {
     ReservationNode* current = head;
-    while (current != nullptr) { // Goes through linked list to find the reservation with the given ID and returns true if found or false if not
-        if(current->reservation.getReservationID() == reservationID){
-            return true;
+    while (current != nullptr) {
+        if (current->reservation.getReservationID() == reservationID) {
+            return &current->reservation;
         }
         current = current->next;
     }
-    return false;
+    return nullptr;
+}
+
+// Asks for a reservation ID and prints that reservation
+void ReservationManager::searchReservation() const {
+    int reservationID;
+    cout << "Reservation ID: ";
+    if (!(cin >> reservationID)) {
+        cin.clear();
+        cin.ignore(1000, '\n');
+        cout << "Invalid reservation ID." << endl;
+        return;
+    }
+    cin.ignore(1000, '\n');
+
+    const Reservation* found = findReservation(reservationID);
+    if (found == nullptr) {
+        cout << "Reservation " << reservationID << " not found." << endl;
+    } else {
+        printReservation(*found);
+    }
+}
+
+// Linear search through the whole list, printing every reservation for this student. O(n)
+void ReservationManager::searchStudentReservations() const {
+    int studentID;
+    cout << "Student ID: ";
+    if (!(cin >> studentID)) {
+        cin.clear();
+        cin.ignore(1000, '\n');
+        cout << "Invalid student ID." << endl;
+        return;
+    }
+    cin.ignore(1000, '\n');
+
+    int count = 0;
+    ReservationNode* current = head;
+    while (current != nullptr) {
+        if (current->reservation.getStudentID() == studentID) {
+            printReservation(current->reservation);
+            count++;
+        }
+        current = current->next;
+    }
+
+    if (count == 0) {
+        cout << "No reservations found for student " << studentID << "." << endl;
+    } else {
+        cout << count << " reservation(s) found." << endl;
+    }
 }

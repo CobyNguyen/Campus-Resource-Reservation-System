@@ -65,3 +65,15 @@ void Resource::print(){
 	}
 	cout << endl;
 }
+
+// Linear search over the resource vector. Checks each resource in order
+// until the ID matches. Works whether or not the vector has been sorted.
+// Time: O(n), Space: O(1)
+int findResourceIndex(vector<Resource>& resources, const string& resourceID) {
+	for (size_t i = 0; i < resources.size(); i++) {
+		if (resources[i].getResourceID() == resourceID) {
+			return i;
+		}
+	}
+	return -1;
+}

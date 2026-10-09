@@ -8,8 +8,9 @@
 
 using namespace std;
 
-const int COMMAND_LENGTH = 8;
-string VALID_COMMANDS[COMMAND_LENGTH] = { "create reservation", "cancel reservation", "undo cancellation", "show available resources", "show all resources", "show reservations", "show waiting lists", "exit"};
+const int COMMAND_LENGTH = 11;
+string VALID_COMMANDS[COMMAND_LENGTH] = { "create reservation", "cancel reservation", "undo cancellation", "show available resources", "show all resources", "show reservations", "show waiting lists", "search resource", "search reservation", "search student reservations", "exit"};
+const int EXIT_COMMAND = COMMAND_LENGTH - 1; // "exit" is always the last command
 
 string userInput = "";
 int userCommand = -1;
@@ -73,6 +74,20 @@ void displayAllResources(){
     }
 }
 
+void searchResource(){ //Asks for a resource ID and prints the match using linear search
+    string resourceID;
+    cout << "Resource ID: ";
+    getline(cin, resourceID);
+
+    int index = findResourceIndex(currentResources, resourceID);
+    if (index == -1){
+        cout << "Resource '" << resourceID << "' not found." << endl;
+    }
+    else{
+        currentResources.at(index).print();
+    }
+}
+
 void showAllCommands(){
     cout << "Valid commands:" << endl;
     for (int i = 0; i < COMMAND_LENGTH; i++){
@@ -120,7 +135,19 @@ void runCommand(int commandIndex, ReservationManager& reservationManager){ //Any
             reservationManager.displayWaitingLists();
             break;
 
-        case 7: //Exit
+        case 7: //Search resource by ID
+            searchResource();
+            break;
+
+        case 8: //Search reservation by ID
+            reservationManager.searchReservation();
+            break;
+
+        case 9: //Search all reservations for a student
+            reservationManager.searchStudentReservations();
+            break;
+
+        case EXIT_COMMAND: //Exit
             cout << "Exiting...";
             break;
 
@@ -148,7 +175,7 @@ int main(){
 
     readResourcesFile("../data/resources.txt");
 
-    while (userCommand != 7){ //Main user input loop;
+    while (userCommand != EXIT_COMMAND){ //Main user input loop;
         cout << endl;
         showAllCommands();
         cout << "Please enter a command: ";

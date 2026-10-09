@@ -293,3 +293,32 @@ Added to cancellation history.
 Undo Cancellation
 
 Reservation Restored Successfully.
+
+## Searching (Linear Search)
+
+Commands:
+
+    search resource              -> find one resource by ID (e.g. R105)
+    search reservation           -> find one reservation by reservation ID
+    search student reservations  -> list every reservation for a student ID
+
+Code:
+
+    findResourceIndex()          src/Resource.cpp            loops through the resource vector
+    findReservation()            src/ReservationManager.cpp  loops through the reservation linked list
+    searchStudentReservations()  src/ReservationManager.cpp  loops through the list and prints every match
+
+Each search is a simple loop we wrote ourselves. No library search function is used.
+
+Why linear search and not binary search:
+
+- Reservations are stored in a linked list. Binary search needs to jump to the middle item, and a linked list can't do that.
+- Resources can be re-sorted by name, so they are not always in ID order. Binary search only works on sorted data.
+- One student can have many reservations, so we have to check every node anyway.
+
+Time complexity: O(n) for all three searches.
+
+Testing:
+
+    make test                                                  (resource search unit tests)
+    cd src && ../reservation_system < ../tests/search_input.txt   (runs the menu with found / not found / bad input cases)
