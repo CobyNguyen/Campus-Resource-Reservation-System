@@ -6,6 +6,11 @@
 
 using namespace std;
 
+//Reporting: 
+// Number of active reservations
+// Current availability of each resource
+
+
 //Constructors
 ReservationManager::ReservationManager() {
     head = nullptr;
@@ -248,7 +253,7 @@ void ReservationManager::undoCancellation(vector<Resource>& resources) { // Undo
             break;
         }
     }
-    cout << "Cancellation undone." << endl;
+    cout << "Cancellation undone. Reservation " << cancelled.reservationId << " restored." << endl;
 }
 
 bool ReservationManager::searchForReservation(int reservationID){
@@ -260,4 +265,36 @@ bool ReservationManager::searchForReservation(int reservationID){
         current = current->next;
     }
     return false;
+}
+
+void ReservationManager::reportActiveReservationsCount() const {
+    cout << "\nReport: Active Reservations" << endl;
+    int count = 0;
+    ReservationNode* current = head;
+    
+    while (current != nullptr) {
+        count++;
+        current = current->next;
+    }
+    
+    cout << "Total Active Reservations: " << count << endl;
+    cout << endl;
+}
+
+void ReservationManager::reportCurrentAvailability(const vector<Resource>& resources) const {
+    cout << "\nReport: Current Resource Availability" << endl;
+    if (resources.empty()) {
+        cout << "No resources found" << endl;
+        return;
+    }
+
+    for (const Resource& resource : resources) {
+        cout << "Resource ID: " << resource.getResourceID() << " | Status: ";
+        if (resource.getAvailability()) {
+            cout << "Available" << endl;
+        } else {
+            cout << "Reserved" << endl;
+        }
+    }
+    cout << endl;
 }

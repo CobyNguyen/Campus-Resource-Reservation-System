@@ -39,6 +39,9 @@ class ReservationManager {
         void displayWaitingLists() const;
         void undoCancellation(vector<Resource>& resources);
         bool searchForReservation(int);
+
+        void reportActiveReservationsCount() const; // Reports the number of active reservations
+        void reportCurrentAvailability(const vector<Resource>& resources) const; // Reports the current availability of each resource
 };
 
 #endif

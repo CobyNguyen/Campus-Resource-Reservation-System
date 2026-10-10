@@ -20,7 +20,7 @@ Resource::Resource(string resourceIDNew, string resourceNameNew, string resource
 }
 
 //Setters and getters
-string Resource::getResourceID() {
+string Resource::getResourceID() const {
 	return this->resourceID;
 }
 
@@ -29,7 +29,7 @@ void Resource::setResourceID(string resourceID) {
 }
 
 
-string Resource::getResourceName() {
+string Resource::getResourceName() const {
 	return this->resourceName;
 }
 
@@ -37,8 +37,7 @@ void Resource::setResourceName(string resourceName) {
 	this->resourceName = resourceName;
 }
 
-
-string Resource::getResourceType() {
+string Resource::getResourceType() const {
 	return this->resourceType;
 }
 
@@ -47,7 +46,7 @@ void Resource::setResourceType(string resourceType) {
 }
 
 
-bool Resource::getAvailability() {
+bool Resource::getAvailability() const {
 	return this->availability;
 }
 

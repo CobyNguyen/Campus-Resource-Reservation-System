@@ -7,7 +7,7 @@ using namespace std;
 
 class Resource {
 	private:
-		string resourceID;
+	    string resourceID;
 		string resourceName;
 		string resourceType;
 		bool availability;
@@ -16,16 +16,16 @@ class Resource {
 		Resource();
 		Resource(string, string, string, bool);
 		
-		string getResourceID();
+		string getResourceID() const;
 		void setResourceID(string);
 
-		string getResourceName();
+		string getResourceName() const;
 		void setResourceName(string);
 
-		string getResourceType();
+		string getResourceType() const;
 		void setResourceType(string);
 
-		bool getAvailability();
+		bool getAvailability() const;
 		void setAvailability(bool);
 
 		void print();

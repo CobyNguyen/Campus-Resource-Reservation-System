@@ -8,8 +8,8 @@
 
 using namespace std;
 
-const int COMMAND_LENGTH = 8;
-string VALID_COMMANDS[COMMAND_LENGTH] = { "create reservation", "cancel reservation", "undo cancellation", "show available resources", "show all resources", "show reservations", "show waiting lists", "exit"};
+const int COMMAND_LENGTH = 9;
+string VALID_COMMANDS[COMMAND_LENGTH] = { "create reservation", "cancel reservation", "undo cancellation", "show available resources", "show all resources", "show reservations", "show waiting lists", "generate reports", "exit"};
 
 string userInput = "";
 int userCommand = -1;
@@ -119,8 +119,14 @@ void runCommand(int commandIndex, ReservationManager& reservationManager){ //Any
         case 6: //Show waiting lists
             reservationManager.displayWaitingLists();
             break;
+        
+        case 7: //generate reports
+            cout << "Generating reports..." << endl;
+            reservationManager.reportActiveReservationsCount();
+            reservationManager.reportCurrentAvailability(currentResources);
+            break;   
 
-        case 7: //Exit
+        case 8: //Exit
             cout << "Exiting...";
             break;
 
