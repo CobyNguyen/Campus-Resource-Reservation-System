@@ -31,21 +31,22 @@ void readResourcesFile(string inputFile){ //reads from the supplied file and pop
             string resourceType;
             bool availability;
             
+            //gets each new chunk of data based on the '|' delimiter
             int next = line.find('|');
-            resourceID = line.substr(0, next);
+            resourceID = line.substr(0, next); //gets resourceID data chunk
             line = line.substr(next + 1);
 
             next = line.find('|');
-            resourceName = line.substr(0, next);
+            resourceName = line.substr(0, next); //gets resourceName data chunk
             line = line.substr(next + 1);
 
             next = line.find('|');
-            resourceType = line.substr(0, next);
+            resourceType = line.substr(0, next); //gets resourceType data chunk
             line = line.substr(next + 1);
 
-            availability = (line == "Available");
+            availability = (line == "Available"); //boolean to availability string
 
-
+            //create new resource based on read data
             Resource newResource = Resource(resourceID, resourceName, resourceType, availability);
             currentResources.push_back(newResource);
         }
@@ -59,7 +60,9 @@ void readResourcesFile(string inputFile){ //reads from the supplied file and pop
 
 void displayAvailableResources(){
     for (size_t i = 0; i < currentResources.size(); i++){
+
         Resource newRs = currentResources.at(i);
+
         if (newRs.getAvailability()){
             newRs.print();
         }
@@ -90,7 +93,7 @@ string stringToLowercase(string str){ //Returns a lowercase version of the input
     return out;
 }
 
-//Implementation derived and modified from https://www.geeksforgeeks.org/cpp/cpp-program-for-quicksort/
+//https://www.w3schools.com/dsa/dsa_algo_quicksort.php
 int partition(vector<Resource>& vec, int low, int high, int condition){
 
     Resource pivot = vec[high];
