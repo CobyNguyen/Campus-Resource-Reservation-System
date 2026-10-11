@@ -8,8 +8,8 @@
 
 using namespace std;
 
-const int COMMAND_LENGTH = 9;
-string VALID_COMMANDS[COMMAND_LENGTH] = { "create reservation", "cancel reservation", "undo cancellation", "show available resources", "show all resources", "show reservations", "show waiting lists", "generate reports", "exit"};
+const int COMMAND_LENGTH = 10;
+string VALID_COMMANDS[COMMAND_LENGTH] = { "create reservation", "cancel reservation", "undo cancellation", "show available resources", "show all resources", "show reservations", "show waiting lists", "generate reports", "sort resources", "exit"};
 
 string userInput = "";
 int userCommand = -1;
@@ -18,7 +18,7 @@ int userCommand = -1;
 vector<Resource> currentResources; //Will contain info from data/resources.txt
 
 
-void readResourcesFile(string inputFile){ //reads from the supplied file and populates availableResources with new resource objects
+void readResourcesFile(string inputFile){ //reads from the supplied file and populates currentResources with new resource objects
     ifstream file = ifstream();
     file.open(inputFile);
 
@@ -90,6 +90,78 @@ string stringToLowercase(string str){ //Returns a lowercase version of the input
     return out;
 }
 
+//Implementation derived and modified from https://www.geeksforgeeks.org/cpp/cpp-program-for-quicksort/
+int partition(vector<Resource>& vec, int low, int high, int condition){
+
+    Resource pivot = vec[high];
+
+    int i = low - 1;
+
+    for (int j = low; j < high; j++){
+
+        if (condition == 0){
+            if (vec[j].getResourceID() <= pivot.getResourceID()){
+                i++;
+                swap(vec[i], vec[j]);
+            }
+        }
+        if (condition == 1){
+            if (vec[j].getResourceName() <= pivot.getResourceName()){
+                i++;
+                swap(vec[i], vec[j]);
+            }
+        }
+        if (condition == 2){
+            if (vec[j].getAvailability() >= pivot.getAvailability()){ //want to put available objects at the top
+                i++;
+                swap(vec[i], vec[j]);
+            }
+        }
+        
+    }
+
+    swap(vec[i + 1], vec[high]);
+
+    return i + 1;
+}
+
+void quickSort(vector<Resource>& vec, int low, int high, int condition){
+
+    if (low < high){
+
+        int part = partition(vec, low, high, condition);
+        
+        quickSort(vec, low, part - 1, condition);
+
+        quickSort(vec, part + 1, high, condition);
+    }
+
+}
+
+void sortReservations(){
+    cout << "Sort by ID, Name, or Availability?: ";
+    string input = "ID";
+    cin >> input;
+
+    input = stringToLowercase( input);
+
+    cin.clear();
+    cin.ignore();
+
+    if (input == "id"){
+        quickSort(currentResources, 0, currentResources.size() - 1, 0);
+    }
+    else if (input == "name"){
+        quickSort(currentResources, 0, currentResources.size() - 1, 1);
+    }
+    else if (input == "availability"){
+        quickSort(currentResources, 0, currentResources.size() - 1, 2);
+    }
+    else{
+        cout << "\nInvalid input... aborting.";
+    }
+}
+
 void runCommand(int commandIndex, ReservationManager& reservationManager){ //Any new commands and their logic should go here. Complex commands should be given their own method that is then called through this switch case.
     switch (commandIndex) {
         case 0: //Create Reservation
@@ -126,7 +198,11 @@ void runCommand(int commandIndex, ReservationManager& reservationManager){ //Any
             reservationManager.reportCurrentAvailability(currentResources);
             break;   
 
-        case 8: //Exit
+        case 8: //Sort resources by Name, ID, or Availability 
+            sortReservations();
+            break;
+
+        case 9: //Exit
             cout << "Exiting...";
             break;
 
@@ -152,9 +228,10 @@ int validateCommand(string commandEntered){ //Returns the index of the input com
 int main(){
     ReservationManager reservationManager;
 
-    readResourcesFile("../data/resources.txt");
+    readResourcesFile("./data/resources.txt");
 
-    while (userCommand != 7){ //Main user input loop;
+    //If the exit command index is changed, make sure to update the exit condition for the main loop!
+    while (userCommand != 9){ //Main user input loop; 
         cout << endl;
         showAllCommands();
         cout << "Please enter a command: ";

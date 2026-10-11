@@ -162,7 +162,8 @@ void ReservationManager::createReservation(vector<Resource>& resources) { // Cre
             waitingList = &waitingLists.back();
         }
 
-        WaitingStudent student{studentID, studentName, resourceID, reservationDate, "N/A", "N/A"};
+        WaitingStudent student = {studentID, studentName, resourceID, reservationDate, "N/A", "N/A"};
+
         if (waitingList->add(student)) {
             cout << "Resource unavailable. Student added to waiting list." << endl;
         } else {
@@ -198,7 +199,8 @@ void ReservationManager::cancelReservation(vector<Resource>& resources) { // Can
     }
 
     const Reservation cancelled = current->reservation; // Store the cancelled reservation details
-    cancellationHistory.record({cancelled.getReservationID(), cancelled.getStudentID(), cancelled.getStudentName(), cancelled.getResourceID(), cancelled.getReservationDate(), "N/A", "N/A"});
+    CancelledReservation calcelledRes = {cancelled.getReservationID(), cancelled.getStudentID(), cancelled.getStudentName(), cancelled.getResourceID(), cancelled.getReservationDate(), "N/A", "N/A"};
+    cancellationHistory.record(calcelledRes);
     removeReservation(reservationID);
 
     for (Resource& resource : resources) { // Update the resource availability and check for waiting list
