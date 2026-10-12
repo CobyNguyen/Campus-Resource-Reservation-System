@@ -1,4 +1,4 @@
-#include "WaitingList.h"
+#include "../include/WaitingList.h"
 
 WaitingList::WaitingList(const std::string& resourceId) : resourceId_(resourceId) {}
 

@@ -6,6 +6,11 @@
 
 using namespace std;
 
+//Reporting: 
+// Number of active reservations
+// Current availability of each resource
+
+
 //Constructors
 ReservationManager::ReservationManager() {
     head = nullptr;
@@ -76,16 +81,17 @@ WaitingList* ReservationManager::findWaitingList(const string& resourceID) {
     return nullptr;
 }
 
-int ReservationManager::nextReservationID() const {
-    int largestID = 0;
+int ReservationManager::nextReservationID() {
+    // Sync with any existing active reservations just in case
+    nextReservationId = 1;
     ReservationNode* current = head;
     while (current != nullptr) {
-        if (current->reservation.getReservationID() > largestID) {
-            largestID = current->reservation.getReservationID();
+        if (current->reservation.getReservationID() >= nextReservationId) {
+            nextReservationId = current->reservation.getReservationID() + 1;
         }
         current = current->next;
     }
-    return largestID + 1;
+    return nextReservationId++;
 }
 
 void ReservationManager::displayReservations() {
@@ -157,7 +163,8 @@ void ReservationManager::createReservation(vector<Resource>& resources) { // Cre
             waitingList = &waitingLists.back();
         }
 
-        WaitingStudent student{studentID, studentName, resourceID, reservationDate, "N/A", "N/A"};
+        WaitingStudent student = {studentID, studentName, resourceID, reservationDate, "N/A", "N/A"};
+
         if (waitingList->add(student)) {
             cout << "Resource unavailable. Student added to waiting list." << endl;
         } else {
@@ -193,7 +200,8 @@ void ReservationManager::cancelReservation(vector<Resource>& resources) { // Can
     }
 
     const Reservation cancelled = current->reservation; // Store the cancelled reservation details
-    cancellationHistory.record({cancelled.getReservationID(), cancelled.getStudentID(), cancelled.getStudentName(), cancelled.getResourceID(), cancelled.getReservationDate(), "N/A", "N/A"});
+    CancelledReservation cancelledRes = {cancelled.getReservationID(), cancelled.getStudentID(), cancelled.getStudentName(), cancelled.getResourceID(), cancelled.getReservationDate(), "N/A", "N/A"};
+    cancellationHistory.record(cancelledRes);
     removeReservation(reservationID);
 
     for (Resource& resource : resources) { // Update the resource availability and check for waiting list
@@ -224,14 +232,21 @@ void ReservationManager::displayWaitingLists() const {
     }
 }
 
-void ReservationManager::undoCancellation(vector<Resource>& resources) { // Undoes the last cancellation and restores the reservation if possible
+void ReservationManager::undoCancellation(vector<Resource>& resources) {
     CancelledReservation cancelled;
     if (!cancellationHistory.undo(cancelled)) {
         cout << "Cancellation history is empty." << endl;
         return;
     }
 
-    for (Resource& resource : resources) { // Check if the resource is already reserved
+    // Check if the reservation ID is already active
+    if (searchForReservation(cancelled.reservationId)) {
+        cancellationHistory.record(cancelled);
+        cout << "Cannot undo cancellation: reservation ID " << cancelled.reservationId << " is already active." << endl;
+        return;
+    }
+
+    for (Resource& resource : resources) { 
         if (resource.getResourceID() == cancelled.resourceId &&
             !resource.getAvailability()) {
             cancellationHistory.record(cancelled);
@@ -240,7 +255,7 @@ void ReservationManager::undoCancellation(vector<Resource>& resources) { // Undo
         }
     }
 
-    // Restore the reservation and update the resource availability
+    // Restore the reservation and update resource availability
     addReservation(Reservation(cancelled.reservationId, cancelled.studentId, cancelled.studentName, cancelled.resourceId, cancelled.reservationDate));
     for (Resource& resource : resources) {
         if (resource.getResourceID() == cancelled.resourceId) {
@@ -248,7 +263,7 @@ void ReservationManager::undoCancellation(vector<Resource>& resources) { // Undo
             break;
         }
     }
-    cout << "Cancellation undone." << endl;
+    cout << "Cancellation undone. Reservation " << cancelled.reservationId << " restored." << endl;
 }
 
 bool ReservationManager::searchForReservation(int reservationID){
@@ -260,4 +275,58 @@ bool ReservationManager::searchForReservation(int reservationID){
         current = current->next;
     }
     return false;
+}
+
+void ReservationManager::reportActiveReservationsCount() const {
+    cout << "\nActive Reservations:" << endl;
+    int count = 0;
+    ReservationNode* current = head;
+    
+    if (current == nullptr) {
+        cout << "No active reservations found." << endl;
+    }
+
+    while (current != nullptr) {
+        count++;
+        cout << "Reservation ID: " << current->reservation.getReservationID() << endl;
+        cout << "Student ID: " << current->reservation.getStudentID() << endl;
+        cout << "Student Name: " << current->reservation.getStudentName() << endl;
+        cout << "Resource ID: " << current->reservation.getResourceID() << endl;
+        cout << "Reservation Date: " << current->reservation.getReservationDate() << endl; 
+        cout << "------------------------" << endl;
+        current = current->next; // Moves to the next node properly
+    }
+    
+    cout << "Total Active Reservations: " << count << endl;
+    cout << endl;
+}
+
+void ReservationManager::reportCurrentAvailability(const vector<Resource>& resources) const {
+    cout << "\nCurrent Resource Availability & Active Reservation Counts:" << endl;
+    if (resources.empty()) {
+        cout << "No resources found" << endl;
+        return;
+    }
+
+    for (const Resource& resource : resources) {
+        // Count how many active reservations currently hold this resource
+        int activeCount = 0;
+        ReservationNode* current = head;
+        while (current != nullptr) {
+            if (current->reservation.getResourceID() == resource.getResourceID()) {
+                activeCount++;
+            }
+            current = current->next;
+        }
+
+        cout << "Resource ID: " << resource.getResourceID() 
+             << " | Status: ";
+        if (resource.getAvailability()) {
+            cout << "Available";
+        } else {
+            cout << "Reserved";
+        }
+        cout << " | Active Reservations: " << activeCount << endl;
+    }
+    cout << endl;
 }

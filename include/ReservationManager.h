@@ -20,13 +20,14 @@ class ReservationManager {
     private:
         ReservationNode* head;
         ReservationNode* tail;
+        int nextReservationId;
         CancellationHistory cancellationHistory;
         vector<WaitingList> waitingLists;
 
         void addReservation(Reservation reservation);
         void removeReservation(int reservationID);
         WaitingList* findWaitingList(const string& resourceID);
-        int nextReservationID() const;
+        int nextReservationID();
 
     public:
         ReservationManager();
@@ -39,6 +40,9 @@ class ReservationManager {
         void displayWaitingLists() const;
         void undoCancellation(vector<Resource>& resources);
         bool searchForReservation(int);
+
+        void reportActiveReservationsCount() const; // Reports the number of active reservations
+        void reportCurrentAvailability(const vector<Resource>& resources) const; // Reports the current availability of each resource
 };
 
 #endif
