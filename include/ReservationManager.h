@@ -20,13 +20,14 @@ class ReservationManager {
     private:
         ReservationNode* head;
         ReservationNode* tail;
+        int nextReservationId;
         CancellationHistory cancellationHistory;
         vector<WaitingList> waitingLists;
 
         void addReservation(Reservation reservation);
         void removeReservation(int reservationID);
         WaitingList* findWaitingList(const string& resourceID);
-        int nextReservationID() const;
+        int nextReservationID();
 
     public:
         ReservationManager();
